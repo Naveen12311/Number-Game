@@ -1,0 +1,136 @@
+<html>
+
+<head>
+
+    <script>
+
+
+// starting function for genrating random numbers
+
+        function game() {
+            let arr = []
+
+            //while loop to get 3 random numbers using math.random() function 
+            while (arr.length < 3) {
+                var randomGen = Math.floor(Math.random() * 10);
+
+                //pushing in the array
+                arr.push(randomGen);
+            }
+            //displaying the array numbers in the document
+            document.getElementById("ranndomNumbers").innerHTML = arr;
+             
+
+            //creating function for updating the INR 
+            function sequence() {
+
+                //getting the value of the document(1000 INR) of initial value
+                let value = document.getElementById("moneyLeft").getAttribute("value");
+              //passing the 1000 value in variable update
+                let update = value;
+               //checking for the sequence of numbers(eg: 123,321,012)
+                if (Math.abs(arr[0] - arr[1]) == 1 && Math.abs(arr[0] - arr[2]) == 2 && Math.abs(arr[1] - arr[2]) == 1) {
+
+                    update = +value + +800
+                    document.getElementById("text").innerHTML = "Congrats You won 800 INR as you got all Numbers in sequence";
+
+                }
+                else if (Math.abs(arr[0] - arr[1]) == 1 && Math.abs(arr[0] - arr[2]) == 1 && Math.abs(arr[1] - arr[2]) == 2) {
+                    update = +value + +800
+                    document.getElementById("text").innerHTML = "Congrats You won 800 INR as you got all Numbers in sequence"
+
+                }
+                else if (Math.abs(arr[0] - arr[1]) == 2 && Math.abs(arr[0] - arr[2]) == 1 && Math.abs(arr[1] - arr[2]) == 1) {
+                    update = +value + +800
+                    document.getElementById("text").innerHTML = "Congrats You won 800 INR as you got all Numbers in sequence"
+
+                }
+               //checking all the numbers are equal using if a=b & a=c then a=c property
+                else if (arr[0] == arr[1] && arr[0] == arr[2] && arr[1] == arr[2]) {
+                    update = +value + +1000
+                    document.getElementById("text").innerHTML = "Congrats You won 1000 INR as you got all Numbers Equal";
+
+                } 
+                //checking whether all the numbers are ever or not
+                else if (arr[0] % 2 == 0 && arr[1] % 2 == 0 && arr[2] % 2 == 0) {
+
+                    update = +value + +300
+                    document.getElementById("text").innerHTML = "Congrats You won 300 INR as you got all Even Numbers";
+
+                }
+                 //checking whether all the numbers are odd or not
+                else if (arr[0] % 2 == 1 && arr[1] % 2 == 1 && arr[2] % 2 == 1) {
+
+                    update = +value + +300
+                    document.getElementById("text").innerHTML = "Congrats You won 300 INR as you got all Odd Numbers";
+
+                }
+
+                //deduct 100INR if non of the above conditions are matched
+                else {
+                    update = +value - +100
+                    document.getElementById("text").innerHTML = "you are not lucky this time"
+                }
+                  
+
+                //we will get updated value and passing it to the attribute to get the fresh value at the start 
+                //where we decalred value
+                document.getElementById("moneyLeft").setAttribute('value', update);
+                let value1 = document.getElementById("moneyLeft").getAttribute("value");
+
+                //getting the element and dispalying again in the document
+                document.getElementById("moneyLeft").innerHTML = value1;
+                
+
+                //checking for updated value is less than 100 disable the button by introduing the property with setAttribute 
+                if (value1 <= 100) {
+                    document.getElementById("text").innerHTML = "GAME OVER :(";
+                    document.getElementById("submit").setAttribute('disabled', 'disabled');
+                }
+
+
+
+            }
+
+
+       //returning sequence as it is nested
+            return sequence();
+        }
+
+
+
+    </script>
+</head>
+<style>
+
+#ranndomNumbers,h3,#moneyLeft,#text{
+text-align: center;
+}
+.container{
+    background-color: beige;
+}
+button{
+    padding: 10px;
+    border: 0;
+}
+
+
+
+</style>
+<body>
+    <div style="height:50px;"></div>
+    <div class="container">
+    <h3>The Random Numbers are</h3>
+    <br>
+    <div id="ranndomNumbers"></div><br>
+    <div id="text"></div><br>
+    <h3>You Have:</h3>
+    <div id="moneyLeft" name="moneyLeft" value="1000"></div>
+    <br>
+<center>
+    <button onclick="game()" id="submit" name="submit">Start</button>
+</center>
+</div>
+</body>
+
+</html>
